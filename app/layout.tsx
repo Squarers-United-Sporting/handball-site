@@ -6,6 +6,8 @@ import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { SERVER_ADDRESS } from '@/app/config';
 import { theme } from '@/theme';
 
+export const fetchCache = 'default-cache';
+
 export const metadata = {
   title: 'Squarers United Sporting',
   description: 'The competitive sporting league we all love.',

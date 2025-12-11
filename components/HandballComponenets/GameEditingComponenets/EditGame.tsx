@@ -17,12 +17,13 @@ import {
   Title,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { ClassicEditGame } from '@/components/HandballComponenets/GameEditingComponenets/Classic/ClassicEditGame';
 import { useEditGameActions } from '@/components/HandballComponenets/GameEditingComponenets/GameEditingActions';
 import { GameScore } from '@/components/HandballComponenets/GameEditingComponenets/GameScore/GameScore';
 import { PlayerButton } from '@/components/HandballComponenets/GameEditingComponenets/PlayerButton/PlayerButton';
 import { TeamButton } from '@/components/HandballComponenets/GameEditingComponenets/TeamButton/TeamButton';
 import { useGameState } from '@/components/HandballComponenets/GameState';
-import { useUserData } from '@/components/hooks/userData';
+import { useUserData, useUserSettings } from '@/components/hooks/userData';
 import { useScreenVertical } from '@/components/hooks/useScreenVertical';
 import { getGame } from '@/ServerActions/GameActions';
 import { getOfficials } from '@/ServerActions/OfficialActions';
@@ -40,6 +41,14 @@ export function playersFromGame(game: GameStructure): PlayerGameStatsStructure[]
 }
 
 export function EditGame({ game }: { game: number }) {
+  const { useClassicScorer } = useUserSettings();
+  if (useClassicScorer) {
+    return <ClassicEditGame game={game} />;
+  }
+  return <EditGame game={game} />;
+}
+
+export function ModernEditGame({ game }: { game: number }) {
   const { isUmpireManager, isOfficial, loading } = useUserData();
   const [officials, setOfficials] = useState<OfficialStructure[]>([]);
   const [scorer, setScorer] = useState<OfficialStructure>();

@@ -192,7 +192,7 @@ export function NavbarNested({
               />
               <Box style={{ overflowWrap: 'break-word', width: '70%', margin: 0 }}>
                 <Title order={4}>
-                  {currentTournament?.name || 'Squarers United Sporting Syndicate'}
+                  {currentTournament?.name || "Squarers' United Sporting Syndicate"}
                 </Title>
               </Box>
             </Group>

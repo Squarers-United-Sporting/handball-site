@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { IconChevronRight } from '@tabler/icons-react';
-import { Box, Collapse, Group, rem, Text, ThemeIcon, UnstyledButton } from '@mantine/core';
+import { Box, Collapse, Group, rem, Text, ThemeIcon } from '@mantine/core';
 import classes from '@/components/Sidebar/NavbarLinksGroup.module.css';
 
 interface LinksGroupProps {
@@ -38,7 +38,7 @@ export function LinksGroup({
   }, [action, opened]);
   const out = (
     <>
-      <UnstyledButton onClick={() => setOpened((o) => !o)} className={classes.control}>
+      <Box onClick={link ? undefined : () => setOpened((o) => !o)} className={classes.control}>
         <Group justify="space-between" gap={0}>
           <Box
             style={{
@@ -68,7 +68,7 @@ export function LinksGroup({
             />
           )}
         </Group>
-      </UnstyledButton>
+      </Box>
       {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
     </>
   );

@@ -3,7 +3,7 @@ import { GamePageArgs } from '@/app/types';
 import { GamePage } from '@/components/HandballComponenets/GamePageComponents/GamePage';
 
 export default async function GamesPage({ params }: GamePageArgs) {
-  const { game } = params;
+  const { game } = await params;
 
   return (
     <>
