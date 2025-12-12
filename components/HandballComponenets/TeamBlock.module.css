@@ -1,19 +1,13 @@
-@property --fallback-team-col {
+@property --team-one-col {
     syntax: "<color>";
     inherits: false;
     initial-value: #b1f0ba;
 }
 
-@property --team-one-col {
-    syntax: "<color>";
-    inherits: false;
-    initial-value: var(--fallback-team-col);
-}
-
 @property --team-two-col {
     syntax: "<color>";
     inherits: false;
-    initial-value: var(--fallback-team-col);
+    initial-value: #b1f0ba;
 }
 
 .TeamGradient {
