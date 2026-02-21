@@ -101,7 +101,11 @@ export function GamePage({ gameID }: GamePageProps) {
                   {!!(game.teamOne.nonCaptain && game.teamTwo.nonCaptain) && (
                     <Tabs.Tab value="playerPoints">Points by Player</Tabs.Tab>
                   )}
-                  {!!game.events?.find((t) => t.eventType === 'Score' && ![null, undefined, 'Double Fault', 'Ace'].includes(t.notes)) && <Tabs.Tab value="methodPoints">Points by Score Method</Tabs.Tab>}
+                  {!!game.events?.find(
+                    (t) =>
+                      t.eventType === 'Score' &&
+                      ![null, undefined, 'Double Fault', 'Ace'].includes(t.notes)
+                  ) && <Tabs.Tab value="methodPoints">Points by Score Method</Tabs.Tab>}
                   {!!game.events?.find((t) => t.eventType === 'Score' && t.details) && (
                     <Tabs.Tab value="heatmap">Heatmap</Tabs.Tab>
                   )}
