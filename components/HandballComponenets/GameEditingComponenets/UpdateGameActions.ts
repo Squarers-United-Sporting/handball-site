@@ -32,10 +32,12 @@ function nextPoint(game: GameState, firstTeamScored: boolean) {
           left = left || right;
           left!.sideOfCourt = 'Left';
           left!.actingSideOfCourt = 'Left';
+          right = undefined;
         } else {
           right = left || right;
           right!.sideOfCourt = 'Right';
           right!.actingSideOfCourt = 'Right';
+          left = undefined;
         }
       }
     }
@@ -44,9 +46,11 @@ function nextPoint(game: GameState, firstTeamScored: boolean) {
     if (!team.servingFromLeft.get) {
       opponentLeft = opponentLeft || opponentRight;
       opponentLeft!.sideOfCourt = 'Left';
+      opponentRight = undefined;
     } else {
       opponentRight = opponentLeft || opponentRight;
       opponentRight!.sideOfCourt = 'Right';
+      opponentLeft = undefined;
     }
   }
   fixCourtPositions(
