@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import {
   closestCenter,
   DndContext,
@@ -15,7 +16,8 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Center, Paper, Text } from '@mantine/core';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { Box, Center, Paper, Text } from '@mantine/core';
 import { GameState } from '@/components/HandballComponenets/GameState';
 import { PlayerGameStatsStructure } from '@/ServerActions/types';
 
@@ -34,6 +36,16 @@ export function OrderPlayers({ game }: OrderPlayersProps) {
     }
   }
 
+  const ref = React.useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const { current } = ref;
+    if (current) {
+      disableBodyScroll(current);
+      return () => enableBodyScroll(current);
+    }
+    return () => {};
+  }, []);
+
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -41,16 +53,18 @@ export function OrderPlayers({ game }: OrderPlayersProps) {
     })
   );
   return (
-    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <SortableContext
-        items={game.votes.get.map((pgs) => pgs.searchableName)}
-        strategy={verticalListSortingStrategy}
-      >
-        {game.votes.get.map((id, i) => (
-          <SortableItem key={id.searchableName} pgs={id} index={i} />
-        ))}
-      </SortableContext>
-    </DndContext>
+    <Box ref={ref} maw="100%" mah="100%" style={{ overflowX: 'hidden' }}>
+      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <SortableContext
+          items={game.votes.get.map((pgs) => pgs.searchableName)}
+          strategy={verticalListSortingStrategy}
+        >
+          {game.votes.get.map((id, i) => (
+            <SortableItem key={id.searchableName} pgs={id} index={i} />
+          ))}
+        </SortableContext>
+      </DndContext>
+    </Box>
   );
 }
 
