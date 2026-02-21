@@ -41,12 +41,10 @@ export function GamePage({ gameID }: GamePageProps) {
       if (isUmpireManager(g.tournament.searchableName) && g && !g.admin) {
         localLogout();
       }
-      if (!g.started) {
-        getGames({
-          team: [g.teamOne.searchableName, g.teamTwo.searchableName],
-          limit: 8,
-        }).then((g2) => setPrevGames(g2.games.toReversed()));
-      }
+      getGames({
+        team: [g.teamOne.searchableName, g.teamTwo.searchableName],
+        limit: 8,
+      }).then((g2) => setPrevGames(g2.games.toReversed()));
     });
   }, [gameID, isUmpireManager]);
   useEffect(() => {
@@ -77,9 +75,8 @@ export function GamePage({ gameID }: GamePageProps) {
         <Box pos="relative">
           <Tabs value={activeTab} onChange={setActiveTab} defaultValue={defaultTab}>
             <Paper component={Tabs.List} grow shadow="xs" justify="space-between">
-              {game.started && <Tabs.Tab value="stats">Stats</Tabs.Tab>}
-              {!game.started && <Tabs.Tab value="headToHead">Head To Head</Tabs.Tab>}
-              {!game.started && <Tabs.Tab value="stats">Stats</Tabs.Tab>}
+              <Tabs.Tab value="stats">Stats</Tabs.Tab>
+              <Tabs.Tab value="headToHead">Head To Head</Tabs.Tab>
               {game.started && <Tabs.Tab value="gameGraph">Game Overview</Tabs.Tab>}
               {game.admin && <Tabs.Tab value="admin"> Management </Tabs.Tab>}
             </Paper>
@@ -101,9 +98,13 @@ export function GamePage({ gameID }: GamePageProps) {
               <Tabs defaultValue="worm">
                 <Tabs.List grow>
                   <Tabs.Tab value="worm">Worm</Tabs.Tab>
-                  <Tabs.Tab value="playerPoints">Points by Player</Tabs.Tab>
-                  <Tabs.Tab value="methodPoints">Points by Score Method</Tabs.Tab>
-                  <Tabs.Tab value="heatmap">Heatmap</Tabs.Tab>
+                  {!!(game.teamOne.nonCaptain && game.teamTwo.nonCaptain) && (
+                    <Tabs.Tab value="playerPoints">Points by Player</Tabs.Tab>
+                  )}
+                  {!!game.events?.find((t) => t.eventType === 'Score' && ![null, undefined, 'Double Fault', 'Ace'].includes(t.notes)) && <Tabs.Tab value="methodPoints">Points by Score Method</Tabs.Tab>}
+                  {!!game.events?.find((t) => t.eventType === 'Score' && t.details) && (
+                    <Tabs.Tab value="heatmap">Heatmap</Tabs.Tab>
+                  )}
                 </Tabs.List>
 
                 <Tabs.Panel value="worm">
