@@ -2,14 +2,11 @@ import bundleAnalyzer from '@next/bundle-analyzer';
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
-  fallback: false,
 });
 
 export default withBundleAnalyzer({
   reactStrictMode: false,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  turbopack: {},
   experimental: {
     optimizePackageImports: ['@mantine/core', '@mantine/hooks'],
   },
