@@ -1,10 +1,16 @@
+
+
+
 import '@mantine/core/styles.css';
 import './global.css';
 
+
+
 import React from 'react';
-import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
 import { SERVER_ADDRESS } from '@/app/config';
 import { theme } from '@/theme';
+
 
 export const metadata = {
   title: 'Squarers United Sporting',
@@ -13,7 +19,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: any }) {
   return (
-    <html lang="en">
+    <html lang="en" {...mantineHtmlProps}>
       <head>
         <ColorSchemeScript />
         <link rel="shortcut icon" href={`${SERVER_ADDRESS}/api/image?name=SUSS`} />
