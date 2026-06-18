@@ -1,16 +1,10 @@
-
-
-
 import '@mantine/core/styles.css';
 import './global.css';
-
-
 
 import React from 'react';
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
 import { SERVER_ADDRESS } from '@/app/config';
 import { theme } from '@/theme';
-
 
 export const metadata = {
   title: 'Squarers United Sporting',
